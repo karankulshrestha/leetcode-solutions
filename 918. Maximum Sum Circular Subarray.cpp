@@ -1,3 +1,5 @@
+// Approach 1
+
 class Solution 
 {
 public:
@@ -25,5 +27,44 @@ public:
         if (sum+ans2==0)
             return ans1;
         return max(ans1,ans2+sum);
+    }
+};
+
+//Approach 2
+
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        int maxSum = nums[0];
+        int sum = nums[0];
+        for(int i = 1; i < nums.size(); i++) {
+            sum = max(sum + nums[i], nums[i]);
+            maxSum = max(sum, maxSum);
+        }
+        return maxSum;
+    }
+
+    int minSum(vector<int>& arr) {
+        int minSum = arr[0];
+        int sum = arr[0];
+        for(int i = 1; i < arr.size(); i++) {
+            sum = min(sum + arr[i], arr[i]);
+            minSum = min(sum, minSum);
+        }
+        return minSum;
+    }
+
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int tsum = 0;
+        for(auto e : nums) {
+            tsum += e;
+        }
+        int maxs = maxSum(nums);
+        int mins = minSum(nums);
+        int csum = tsum - mins;
+        if(maxs > 0) {
+            return max(csum, maxs);
+        }
+        return maxs;
     }
 };
